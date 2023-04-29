@@ -1,5 +1,16 @@
 {
   "titles": {
     "msg001": "Your YouTube search more accurately"
+  },
+  "labels": {
+    "msg001": "Enter the keyword to search on YouTube",
+    "msg002": "Search",
+    "msg003": "Email for results"
+  },
+  "error": {
+    "msg001": "Required field",
+    "msg002": "Minimum of 3 characters",
+    "msg003": "Maximum of 100 characters",
+    "msg004": "Invalid email"
   }
 }

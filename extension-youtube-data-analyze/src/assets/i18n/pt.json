@@ -1,5 +1,16 @@
 {
   "titles": {
-    "msg001": "Sua pesquisa no YouTube com mais precisão"
+    "msg001": "Sua pesquisa no <strong>YouTube</strong> com mais precisão"
+  },
+  "labels": {
+    "msg001": "Digite a palavra-chave para pesquisar no YouTube",
+    "msg002": "Pesquisar",
+    "msg003": "E-mail para resultados"
+  },
+  "error": {
+    "msg001": "Campo obrigatório",
+    "msg002": "Mínimo de 3 caracteres",
+    "msg003": "Máximo de 100 caracteres",
+    "msg004": "Digite um e-mail válido"
   }
 }
