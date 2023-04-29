@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoService } from '@ngneat/transloco';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
+import { ChangeLanguageComponent } from './components/change-language/change-language.component';
 import { TranslocoRootModule, initTransloco } from './transloco-root.module';
 
 registerLocaleData(en);
@@ -21,6 +22,7 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     TranslocoRootModule,
+    ChangeLanguageComponent,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
