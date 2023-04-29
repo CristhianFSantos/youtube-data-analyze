@@ -2,7 +2,7 @@
   <p class="header-title" [innerHTML]="'titles.msg001' | transloco"></p>
   <app-change-language class="header-change-language" />
 </header>
-<main class="container-content">
+<main class="container-content" *ngIf="!searchDone; else searchDoneTemplateRef">
   <form
     [formGroup]="formSearch"
     nz-form
@@ -54,7 +54,7 @@
       <ng-container *ngIf="control.hasError('required')">{{
         "error.msg001" | transloco
       }}</ng-container>
-      <ng-container *ngIf="control.hasError('email')">{{
+      <ng-container *ngIf="control.hasError('pattern')">{{
         "error.msg004" | transloco
       }}</ng-container>
     </ng-template>
@@ -72,3 +72,6 @@
     </button>
   </form>
 </main>
+<ng-template #searchDoneTemplateRef>
+  <app-result (newSearch)="newSearch()" />
+</ng-template>

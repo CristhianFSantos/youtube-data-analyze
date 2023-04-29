@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   formSearch: FormGroup;
+  searchDone = false;
 
   ngOnInit(): void {
     this.initForm();
@@ -21,11 +22,19 @@ export class AppComponent implements OnInit {
         Validators.maxLength(100),
       ]),
 
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i),
+      ]),
     });
   }
 
   send(): void {
-    console.log(this.formSearch.value);
+    this.searchDone = true;
+  }
+
+  newSearch(): void {
+    this.searchDone = false;
+    this.formSearch.reset();
   }
 }
