@@ -14,7 +14,12 @@
         {{ "labels.msg001" | transloco }}
       </nz-form-label>
       <nz-form-control [nzErrorTip]="errorTextSearchTpl">
-        <input nz-input id="textSearch" formControlName="textSearch" />
+        <input
+          nzSize="large"
+          nz-input
+          id="textSearch"
+          formControlName="textSearch"
+        />
       </nz-form-control>
     </nz-form-item>
 
@@ -35,7 +40,13 @@
         {{ "labels.msg003" | transloco }}
       </nz-form-label>
       <nz-form-control [nzErrorTip]="errorEmailTpl">
-        <input nz-input id="email" type="email" formControlName="email" />
+        <input
+          nzSize="large"
+          nz-input
+          id="email"
+          type="email"
+          formControlName="email"
+        />
       </nz-form-control>
     </nz-form-item>
 
