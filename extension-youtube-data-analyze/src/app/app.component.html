@@ -1,4 +1,63 @@
 <header class="container-header">
-  <p class="header-title">{{ "titles.msg001" | transloco }}</p>
+  <p class="header-title" [innerHTML]="'titles.msg001' | transloco"></p>
   <app-change-language class="header-change-language" />
 </header>
+<main class="container-content">
+  <form
+    [formGroup]="formSearch"
+    nz-form
+    class="content-form"
+    (ngSubmit)="send()"
+  >
+    <nz-form-item>
+      <nz-form-label nzFor="textSearch" class="form-label" nzRequired>
+        {{ "labels.msg001" | transloco }}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="errorTextSearchTpl">
+        <input nz-input id="textSearch" formControlName="textSearch" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <ng-template #errorTextSearchTpl let-control>
+      <ng-container *ngIf="control.hasError('required')">{{
+        "error.msg001" | transloco
+      }}</ng-container>
+      <ng-container *ngIf="control.hasError('minlength')">{{
+        "error.msg002" | transloco
+      }}</ng-container>
+      <ng-container *ngIf="control.hasError('maxlength')">{{
+        "error.msg003" | transloco
+      }}</ng-container>
+    </ng-template>
+
+    <nz-form-item>
+      <nz-form-label nzFor="email" class="form-label" nzRequired>
+        {{ "labels.msg003" | transloco }}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="errorEmailTpl">
+        <input nz-input id="email" type="email" formControlName="email" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <ng-template #errorEmailTpl let-control>
+      <ng-container *ngIf="control.hasError('required')">{{
+        "error.msg001" | transloco
+      }}</ng-container>
+      <ng-container *ngIf="control.hasError('email')">{{
+        "error.msg004" | transloco
+      }}</ng-container>
+    </ng-template>
+    <button
+      class="form-button"
+      nzBlock
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      nzSize="large"
+      [disabled]="formSearch.invalid"
+    >
+      <span nz-icon nzType="youtube" nzTheme="fill"></span>
+      {{ "labels.msg002" | transloco }}
+    </button>
+  </form>
+</main>

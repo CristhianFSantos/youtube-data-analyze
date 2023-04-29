@@ -4,14 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoService } from '@ngneat/transloco';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { AppComponent } from './app.component';
 import { ChangeLanguageComponent } from './components/change-language/change-language.component';
 import { TranslocoRootModule, initTransloco } from './transloco-root.module';
-
 registerLocaleData(en);
 
 @NgModule({
@@ -23,6 +26,11 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     TranslocoRootModule,
     ChangeLanguageComponent,
+    NzIconModule,
+    NzInputModule,
+    NzFormModule,
+    NzButtonModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
