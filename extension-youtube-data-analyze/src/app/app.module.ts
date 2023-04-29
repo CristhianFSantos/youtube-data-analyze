@@ -14,6 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { AppComponent } from './app.component';
 import { ChangeLanguageComponent } from './components/change-language/change-language.component';
+import { ResultComponent } from './components/result/result.component';
 import { TranslocoRootModule, initTransloco } from './transloco-root.module';
 registerLocaleData(en);
 
@@ -31,6 +32,7 @@ registerLocaleData(en);
     NzFormModule,
     NzButtonModule,
     ReactiveFormsModule,
+    ResultComponent,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
