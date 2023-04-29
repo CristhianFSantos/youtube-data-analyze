@@ -1,0 +1,15 @@
+{
+  "name": "YouTube Data Analyze",
+  "version": "1.0.0",
+  "description": "Extensão para analisar dados do YouTube e gerar resultados mais precisos.",
+  "author": "Cristhian Felipe Macedo dos Santos",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "/assets/images/icons/128.png",
+    "default_title": "Message Commit/Check-in Extension"
+  },
+  "icons": {
+    "128": "/assets/images/icons/128.png"
+  }
+}
