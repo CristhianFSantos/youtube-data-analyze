@@ -3,14 +3,19 @@
     "msg001": "Sua pesquisa no <strong>YouTube</strong> com mais precisão"
   },
   "labels": {
-    "msg001": "Digite a palavra-chave para pesquisar no YouTube",
+    "msg001": "Digite o texto para pesquisar no YouTube",
     "msg002": "Pesquisar",
-    "msg003": "E-mail para resultados"
+    "msg003": "E-mail para resultados",
+    "msg004": "Fazer nova pesquisa"
   },
   "error": {
     "msg001": "Campo obrigatório",
     "msg002": "Mínimo de 3 caracteres",
     "msg003": "Máximo de 100 caracteres",
     "msg004": "Digite um e-mail válido"
+  },
+  "success": {
+    "msg001": "Parabéns, sua pesquisa foi enviada com sucesso!",
+    "msg002": "Em breve você receberá os resultados no e-mail informado."
   }
 }
