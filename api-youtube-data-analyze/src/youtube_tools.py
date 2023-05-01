@@ -6,8 +6,8 @@ class YouTube:
     
     ## Create api_key.json file in the root directory of the project and get api key in https://console.developers.google.com/apis/credentials
     def get_developer_key(self) -> str :
-        json_tools = JsonTools()
-        data_json = json_tools.read_json('api_key.json') ## This file is not in the repository because it contains sensitive data
+        json_tools = JsonTools()        
+        data_json = json_tools.read_json('api-youtube-data-analyze/api_key.json') ## This file is not in the repository because it contains sensitive data
         developer_key = data_json['developerKey']
         return developer_key
     
