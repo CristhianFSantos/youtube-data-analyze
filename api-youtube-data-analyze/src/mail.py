@@ -34,8 +34,8 @@ class Mail:
         message.attach(body)
         
         
-        filename = 'anexo.csv'
-        file_path = 'api-youtube-data-analyze/src/anexos/anexo.csv'
+        filename = 'videos.csv'
+        file_path = 'api-youtube-data-analyze/src/anexos/videos.csv'
         with open(file_path, 'rb') as f:
             
             attachment = MIMEBase('application', 'octet-stream')
