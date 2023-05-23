@@ -9,11 +9,8 @@ class Search:
     
     def get_lists_data_youtube(self, response):
         search = response['search']
-        regions =  response['language'] == 'pt' and ['BR', 'US'] or ['US']
-        
-        full_videos = []
-        for region_code in regions:
-            full_videos += self.map_youtube_data.map_videos(self.youtube_tools.get_videos(search, region_code))
+                
+        full_videos = self.map_youtube_data.map_videos(self.youtube_tools.get_videos(search, "BR"))
         
         videos_key = 'videoId'  
         videos = self.utils.remove_duplicates(full_videos, videos_key)
