@@ -10,13 +10,17 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer,PorterStemmer
 from nltk.corpus import stopwords 
 from nltk.stem import RSLPStemmer
+from tqdm import tqdm
+from log_tools import LogTools
 
 
 class ProcessData:
+    log_tools = LogTools()
     model_route = 'cardiffnlp/xlm-v-base-tweet-sentiment-pt'
     tokenizer = AutoTokenizer.from_pretrained(model_route)
     model = AutoModelForSequenceClassification.from_pretrained(model_route)
 
+    # Categoriza os comentários em positivos, negativos e neutros
     def polarity_scores_roberta(self, text):
         device = "cuda:0" if torch.cuda.is_available() else "cpu"
         encoded_text = self.tokenizer(text, return_tensors='pt').to(device)
@@ -31,25 +35,23 @@ class ProcessData:
         }
         return scores_dict
     
-    
+    # Processa os comentários fazendo limpeza de stopwords, lematização e stemização
     def preprocess(self, sentence):
         lemmatizer = WordNetLemmatizer()
-        stemmerPT = RSLPStemmer()
+        stemmer_pt = RSLPStemmer()
 
-        language = "portuguese"
-        stop_words = set(stopwords.words(language)) 
+        stop_words = set(stopwords.words("portuguese")) 
 
         remove_stop_words = False
         remove_stem_words = False
         remove_lemma_wrods = False
         
-        
-        sentence=str(sentence)
+        sentence = str(sentence)
         sentence = sentence.lower()
-        sentence=sentence.replace('{html}',"") 
+        sentence = sentence.replace('{html}',"") 
         cleanr = re.compile('<.*?>')
         cleantext = re.sub(cleanr, '', sentence)
-        rem_url=re.sub(r'http\S+', '',cleantext)
+        rem_url = re.sub(r'http\S+', '',cleantext)
         rem_num = re.sub('[0-9]+', '', rem_url)
         tokenizer = RegexpTokenizer(r'\w+')
         tokens = tokenizer.tokenize(rem_num)  
@@ -58,16 +60,17 @@ class ProcessData:
         else:
           filtered_words = [w for w in tokens]
         if(remove_stem_words):
-          filtered_words = [stemmerPT.stem(w) for w in filtered_words]
+          filtered_words = [stemmer_pt.stem(w) for w in filtered_words]
         if(remove_lemma_wrods):
           filtered_words = [lemmatizer.lemmatize(w) for w in filtered_words] 
         return " ".join(filtered_words)
 
+    # Processa o dataframe de comentários
     def process_data_frame(self, df_pandas):
         df_preprocessed = df_pandas.copy()
         df_preprocessed['textOriginal'] = np.array(df_preprocessed['textOriginal'].map(lambda s:self.preprocess(s)))       
 
-        res = {}
+        result = {}
         ids_com_erro = []
         for i, row in tqdm(df_preprocessed.iterrows(), total=len(df_preprocessed)):
             try:
@@ -75,19 +78,16 @@ class ProcessData:
                 myid = row['commentId']
 
                 roberta_result = self.polarity_scores_roberta(text)
-                print(len(df_preprocessed) - i)
-
-                res[myid] = roberta_result
+                result[myid] = roberta_result
             except Exception as e:
-                print(str(e))
-                print(f'Erro em commentId: {myid}')
+                # self.log_tools.log_error(str(e))
+                # self.log_tools.log_error(f'Erro em commentId: {myid}')
+                
                 ids_com_erro.append(myid)
         
-        
-        results_df = pd.DataFrame(res).T
+        results_df = pd.DataFrame(result).T
         results_df = results_df.reset_index().rename(columns={'index': 'commentId'})
         results_df = results_df.merge(df_preprocessed, how='right')        
-
 
         results_df_categorizado = results_df
         results_df_categorizado['Sentimento'] = ""
@@ -107,7 +107,6 @@ class ProcessData:
           else:
             texto_sentimento = "Sem resultado"
           results_df_categorizado.at[index, 'Sentimento'] = texto_sentimento
-  
   
         df_total = results_df_categorizado.copy()
         df_total['N_total']=1

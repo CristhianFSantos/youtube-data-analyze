@@ -25,11 +25,11 @@ class YouTube:
     # https://developers.google.com/youtube/v3/getting-started?hl=pt-br#quota
     # https://developers.google.com/youtube/v3/determine_quota_cost?hl=pt-br
     # https://i.stack.imgur.com/fAEkl.png
-    def get_videos(self, query, region_code):
+    def get_videos(self, query):
         search_response = self.build_youtube_service().search().list(
             q = query,
             part = "id,snippet",
-            regionCode = region_code,
+            regionCode = 'BR',
             maxResults = 50
         ).execute()
         return search_response
