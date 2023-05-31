@@ -3,7 +3,7 @@ from flask_cors import CORS
 from start import Start
 from log_tools import LogTools
 import socket
-socket.setdefaulttimeout(600) # seconds
+socket.setdefaulttimeout(1200) # seconds
 
 start = Start()
 log_tools = LogTools()

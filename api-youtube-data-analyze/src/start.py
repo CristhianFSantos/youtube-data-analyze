@@ -1,4 +1,3 @@
-from tabulate import tabulate
 from search import Search
 from utils import Utils
 from mail import Mail
@@ -48,16 +47,20 @@ class Start:
         
         self.log_tools.log_success('completed grouping the processing results')
         
-        ############# Transformando o resultado em uma tabela de texto para ser enviado por email
-        self.log_tools.log_with_time_now('transforming the result into a text table to be sent by email')
+    
         df_last_result = df_total_result[['videoId', 'title', 'channelTitle', 'viewCount', 'likeCount', 'commentCount', 'N_positivo', 'Perc_positivo', 'link']]
         df_last_result = df_last_result.sort_values(['Perc_positivo', 'viewCount', 'likeCount', 'commentCount'], ascending=[False, False, False, False])
         df_last_result_top_10 = df_last_result.head(10)
         df_last_result_top_10 = df_last_result_top_10[['title', 'channelTitle', 'link']]
         df_last_result_top_10.columns = ['Titulo do video', 'Canal do video', 'Link do video']
-        text_result = tabulate(df_last_result_top_10, headers='keys', tablefmt='psql')
-        print(text_result)               
+        
+        file_name = 'anexo.csv'
+        self.csv_tools.check_file_exists(file_name)      
+        self.csv_tools.write_data_frame_to_csv(df_last_result_top_10, file_name)
         
         
         ############# Processo de envio de email com os resultados
+        self.mail.send_mail(email, 'Pesquisa Avançada no Youtube', 'api-youtube-data-analyze/src/templates/email_result.html')
+        self.log_tools.log_success('completed email sending process')
+        
         

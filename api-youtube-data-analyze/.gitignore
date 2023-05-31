@@ -160,6 +160,5 @@ cython_debug/
 #.idea/
 
 api_key.json
-mail_credentials.json
 database.db
 database_json/*.json
